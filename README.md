@@ -1,7 +1,7 @@
 # SurrogateOutcome <img src="hex_SurrogateOutcome.png" align="right" height="220" alt="SurrogateOutcome hex logo" />
 
 <!-- badges: start -->
-[![CRAN status](https://CRAN.R-project.org/package=SurrogateOutcome)](https://CRAN.R-project.org/package=SurrogateOutcome)
+[![CRAN status](https://www.r-pkg.org/badges/version/SurrogateOutcome)](https://CRAN.R-project.org/package=SurrogateOutcome)
 <!-- badges: end -->
 
 `SurrogateOutcome` is an `R` package to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event.  
