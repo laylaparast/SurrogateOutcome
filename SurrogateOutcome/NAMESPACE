@@ -1,0 +1,12 @@
+importFrom(stats, bw.nrd, dnorm, quantile, rexp, sd, mad, pnorm, approx, predict)
+importFrom(survival, survfit, Surv, coxph, basehaz)
+
+export(R.opt.event)
+export(delta.estimate)
+export(delta.q.event.RMST)
+export(delta.q.event.semi.RMST)
+export(delta.t.RMST)
+export(IV.event)
+export(R.q.event)
+export(R.t.estimate)
+export(censor.weight)
