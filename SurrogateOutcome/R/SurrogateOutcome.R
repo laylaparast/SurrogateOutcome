@@ -43,7 +43,7 @@ delta.estimate.RMST= function(xone,xzero, deltaone, deltazero, t, weight = NULL,
 }
 
 R.q.event = function(xone,xzero, deltaone, deltazero, sone, szero, t, landmark, number = 40, transform = FALSE, extrapolate = TRUE, std = FALSE, conf.int = FALSE, weight.perturb = NULL, type = "np") {
-	if(!(type %in% c("np","semi"))) {warning("Warning: Invalid type, default `np' for nonparametric estimator being used", call. = FALSE); type = "np"}
+	if(!(type %in% c("np","semi"))) {warning("Invalid type, default `np' for nonparametric estimator being used", call. = FALSE); type = "np"}
 	warn.te = FALSE
 	warn.support = FALSE
 	n1 = length(xone)
@@ -58,14 +58,14 @@ R.q.event = function(xone,xzero, deltaone, deltazero, sone, szero, t, landmark, 
 	sd.delta  = sd(delta.p.vec)
 	mad.delta = mad(delta.p.vec)
 	conf.quantile.delta = c(new.q(delta.p.vec, 0.025), new.q(delta.p.vec, 0.975))
-	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("Warning: it looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
+	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("It looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
 		warn.te = TRUE}
-	if(delta.estimate < 0) {warning("Warning: it looks like you need to switch the treatment groups", call. = FALSE)}
+	if(delta.estimate < 0) {warning("It looks like you need to switch the treatment groups", call. = FALSE)}
 	range.1 = range(pmin(sone,landmark))
 	range.0 = range(pmin(szero,landmark))
 	range.ind = (range.1[1] > range.0[1]) | (range.1[2] < range.0[2])
 	if(range.ind & !extrapolate & !transform) {
-		warning("Warning: observed supports do not appear equal, may need to consider a transformation or extrapolation", call. = FALSE)
+		warning("Observed supports do not appear equal, may need to consider a transformation or extrapolation", call. = FALSE)
 		warn.support = TRUE
 	}
 	
@@ -131,7 +131,7 @@ delta.q.event.RMST = function(xone,xzero, deltaone, deltazero, sone, szero, t, w
 	phi.a.tst0[,i] =  temp.phi$Phat.ss
 	if(temp.phi$warn.flag == 1) {warn.temp = TRUE}
 	}
-	if(warn.temp == TRUE & warn.extrapolate == TRUE) {if(warn.extrapolate) {warning("Note: Values were extrapolated.", call. = FALSE)}}
+	if(warn.temp == TRUE & warn.extrapolate == TRUE) {if(warn.extrapolate) {warning("Values were extrapolated.", call. = FALSE)}}
 	phi.int = vector(length = number.s.o)
 	for(j in 1:number.s.o) {
 		phi.int[j] = landmark + (t-landmark)/number*(phi.a.tst0[j,1]/2 + sum(phi.a.tst0[j,2:number]) + phi.a.tst0[j,number+1]/2)
@@ -340,9 +340,9 @@ R.t.estimate = function(xone,xzero, deltaone, deltazero, t, landmark, std = FALS
 	sd.delta  = sd(delta.p.vec)
 	mad.delta = mad(delta.p.vec)
 	conf.quantile.delta = c(new.q(delta.p.vec, 0.025), new.q(delta.p.vec, 0.975))
-	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("Warning: it looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
+	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("It looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
 		warn.te = TRUE}
-	if(delta.estimate < 0) {warning("Warning: it looks like you need to switch the treatment groups", call. = FALSE)}
+	if(delta.estimate < 0) {warning("It looks like you need to switch the treatment groups", call. = FALSE)}
 	delta.t.estimate = delta.t.RMST(xone = xone, xzero = xzero, deltaone = deltaone, deltazero = deltazero, t = t, landmark=landmark)$delta.t
 	R.t = 1-delta.t.estimate/delta.estimate	
 	if(std | conf.int){
@@ -406,7 +406,7 @@ delta.t.RMST = function(xone,xzero, deltaone, deltazero, t, weight = NULL, landm
 
 
 IV.event = function(xone,xzero, deltaone, deltazero, sone, szero, t, landmark, number = 40, transform = FALSE, extrapolate = TRUE, std = FALSE, conf.int = FALSE, weight.perturb = NULL, type = "np") {
-	if(!(type %in% c("np","semi"))) {warning("Warning: Invalid type, default `np' for nonparametric estimator being used", call. = FALSE); type = "np"}
+	if(!(type %in% c("np","semi"))) {warning("Invalid type, default `np' for nonparametric estimator being used", call. = FALSE); type = "np"}
 	warn.te = FALSE
 	warn.support = FALSE
 	n1 = length(xone)
@@ -421,14 +421,14 @@ IV.event = function(xone,xzero, deltaone, deltazero, sone, szero, t, landmark, n
 	sd.delta  = sd(delta.p.vec)
 	mad.delta = mad(delta.p.vec)
 	conf.quantile.delta = c(new.q(delta.p.vec, 0.025), new.q(delta.p.vec, 0.975))
-	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("Warning: it looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
+	if(0>conf.quantile.delta[1] & 0< conf.quantile.delta[2]) {warning("It looks like the treatment effect is not significant; may be difficult to interpret the proportion of treatment effect explained in this setting", call. = FALSE)
 		warn.te = TRUE}
-	if(delta.estimate < 0) {warning("Warning: it looks like you need to switch the treatment groups", call. = FALSE)}
+	if(delta.estimate < 0) {warning("It looks like you need to switch the treatment groups", call. = FALSE)}
 	range.1 = range(pmin(sone,landmark))
 	range.0 = range(pmin(szero,landmark))
 	range.ind = (range.1[1] > range.0[1]) | (range.1[2] < range.0[2])
 	if(range.ind & !extrapolate & !transform) {
-		warning("Warning: observed supports do not appear equal, may need to consider a transformation or extrapolation", call. = FALSE)
+		warning("Observed supports do not appear equal, may need to consider a transformation or extrapolation", call. = FALSE)
 		warn.support = TRUE
 	}
 	

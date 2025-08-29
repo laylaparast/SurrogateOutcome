@@ -3,6 +3,7 @@ Type: Package
 Title: Estimation of the Proportion of Treatment Effect Explained by Surrogate Outcome Information
 Version: 1.2
 Authors@R: c(person("Layla", "Parast", role = c("aut", "cre"), email = "parast@austin.utexas.edu"), person("Xuan", "Wang", role = c("aut"), email = "xuan.wang@utah.edu"))
-Description: Provides functions to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event. All methods are described in detail in Parast, et al (2020) "Assessing the Value of a Censored Surrogate Outcome" <doi:10.1007/s10985-019-09473-1> and Wang et al (2025) "Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival" (Under Review) <doi:10.48550/arXiv.2412.14129>.
+Description: Provides functions to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event. All methods are described in detail in Parast, et al (2020) "Assessing the Value of a Censored Surrogate Outcome" <doi:10.1007/s10985-019-09473-1> and Wang et al (2025) "Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival" (Under Review) <doi:10.48550/arXiv.2412.14129>.  A tutorial for this package can be found at
+  <https://www.laylaparast.com/surrogateoutcome>.
 License: GPL
 Imports: stats, survival
