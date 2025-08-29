@@ -1,0 +1,102 @@
+---
+title: "Tutorial for main functions in SurrogateOutcome package"
+output:
+  html_document:
+---
+
+```{r global_options, echo=FALSE}
+knitr::opts_chunk$set(fig.width=13, warning=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60))
+```
+
+In this tutorial, we will go through examples using the functions in the **SurrogateOutcome** package. First, install the package from CRAN (or Github) and load it.
+
+```{r results = "hide", message=FALSE}
+#install.packages("SurrogateOutcome")
+#install.packages("devtools")  
+#devtools::install_github("laylaparast/SurrogateOutcome")
+library(SurrogateOutcome)
+
+```
+
+This package offers methods to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event. All methods are described in detail in Parast, et al (2020) "Assessing the Value of a Censored Surrogate Outcome" (<https://doi.org/10.1007/s10985-019-09473-1>) and Wang et al (2025) "Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival" (<https://doi.org/10.0.48550/arXiv.2412.14129>).
+
+If you are viewing the html version of this tutorial, you can find the R markdown file here: <https://github.com/laylaparast/SurrogateOutcome>. It is the file called SurrogateOutcome_tutorial.Rmd.
+
+### Evaluating a Surrogate Outcome: Parast et al (2020) 
+
+Let's first take a look at the example dataset included in the package, **ExampleData**. The dataset has 1000 observations from a treatment group (group 1) and 1000 observations from a control group (group 0), and contains **s1** and **s0**, the time of the occurrence of the surrogate outcome for treated and control observations, respectively,  **x1** and **x0**, the observed primary outcome event or censoring time for treated and control observations, respectively, i.e., min(T, C) where T is the time of the primary outcome and C is the censoring time, and **delta1** and **delta0**, the indicator identifying whether the observation was observed to have the primary outcome event or was censored for treated and control observations, respectively, i.e., 1*(T<C) where T is the time of the primary outcome and C is the censoring time.
+
+```{r}
+data(ExampleData)
+names(ExampleData)
+```
+
+Our goal is to evaluate the proportion of the treatment effect (PTE) on the censored primary outcome at time **t** that is explained by the treatment effect on the censored surrogate outcome at time **landmark** which should be less than **t**.  The idea behind such surrogacy evaluation is that if the surrogate outcome up to the **landmark** time captures a large proportion of the treatment effect at time **t**, then perhaps future studies may evaluate the treatment effect on the surrogate at time **landmark** (i.e, earlier than **t**) and make a decision about the treatment effect with less required follow-up time. 
+
+The methods of Parast et al (2020) use the restricted mean survival time as the treatment effect quantity of interest. Let's take a look at the estimated PTE using this method with the example data described above, using a time of **t=5** and **landmark = 2**. We will use the function **R.q.event** which requires the arguments: **xone, xzero, deltaone, deltazero, sone, szero** which map to the descriptions in the example data, as well as **t** and **landmark**. The function provides the estimated treatment effect (**delta**), the residual treatment effect (**delta.q**), and the PTE, denoted as **R.q**.
+
+```{r}
+R.q.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2)
+
+```
+
+The default estimation approach for this function is nonparametric estimation. In some cases this approach will require some extrapolation (if there is a lack of overlap in the times of the surrogate outcome); in such cases, a note is given to the user. An alternative option is semi-parametric estimation as follows: 
+
+```{r}
+R.q.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2, type = "semi")
+```
+The function also provides standard error estimates and confidence intervals if requested, which are obtained using perturbation-resampling.
+
+```{r}
+R.q.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2, std=TRUE, conf.int=TRUE)
+
+```
+The function **R.t.estimate** can be used to estimate the PTE of primary outcome information only up to **landmark**. This is useful when we want to determine the incremental value of the surrogate outcome information, which can be estimated using **IV.event** as shown below. 
+
+```{r}
+#PTE of primary outcome only up to landmark
+R.t.estimate(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone =ExampleData$delta1, 
+deltazero = ExampleData$delta0, t = 5, landmark=2)
+
+#Incremental value of surrogate
+IV.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5,
+ landmark=2)
+```
+
+### Evaluating a Surrogate Outcome: Wang et al (2025)
+
+We now move on to the Wang et al (2025) method which also estimates the PTE in this setting, but using the difference in the primary outcome survival at time **t** as the treatment effect quantity. In addition, this method identifies and estimates the optimal transformation of the surrogate outcome, and then estimates the PTE of this optimal transformation.  The main function is **R.opt.event** and the syntax parallels the functions previously described, with the PTE denoted as **R.opt** in the output. 
+
+```{r}
+R.opt.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2)
+```
+
+The function also provides standard error estimates and confidence intervals if requested, which are obtained using perturbation-resampling.
+
+```{r}
+R.opt.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2, std=TRUE, conf.int = TRUE)
+```
+
+Lastly, one can request that the function returns the optimal transformation estimates using the argument **gopt** as well the PTE of the primary outcome information only, denoted as **R.opt.ind**, (similar to **R.t.estimate** above) using the arugment **ind**, as shown below. 
+
+```{r}
+R.opt.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
+deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t = 5, 
+landmark=2, gopt = TRUE, ind=TRUE)
+```
+
+That's all for now. Please email <parast@austin.utexas.edu> if you have questions.
+
+
+------------------------------------------------------------------------
