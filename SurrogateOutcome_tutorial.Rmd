@@ -11,14 +11,16 @@ knitr::opts_chunk$set(fig.width=13, warning=FALSE, tidy=TRUE, tidy.opts=list(wid
 In this tutorial, we will go through examples using the functions in the **SurrogateOutcome** package. First, install the package from CRAN (or Github) and load it.
 
 ```{r results = "hide", message=FALSE}
+#from CRAN:
 #install.packages("SurrogateOutcome")
+#or Github:
 #install.packages("devtools")  
 #devtools::install_github("laylaparast/SurrogateOutcome")
 library(SurrogateOutcome)
 
 ```
 
-This package offers methods to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event. All methods are described in detail in Parast, et al (2020) "Assessing the Value of a Censored Surrogate Outcome" (<https://doi.org/10.1007/s10985-019-09473-1>) and Wang et al (2025) "Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival" (<https://doi.org/10.0.48550/arXiv.2412.14129>).
+This package offers methods to estimate the proportion of treatment effect on a censored primary outcome that is explained by the treatment effect on a censored surrogate outcome/event. All methods are described in detail in Parast, et al (2020) "Assessing the Value of a Censored Surrogate Outcome" (<https://doi.org/10.1007/s10985-019-09473-1>) and Wang et al (2025) "Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival" (<https://doi.org/10.1002/sim.70268>).
 
 If you are viewing the html version of this tutorial, you can find the R markdown file here: <https://github.com/laylaparast/SurrogateOutcome>. It is the file called SurrogateOutcome_tutorial.Rmd.
 
