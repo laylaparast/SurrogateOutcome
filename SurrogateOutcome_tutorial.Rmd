@@ -90,7 +90,7 @@ deltazero = ExampleData$delta0, sone = ExampleData$s1, szero = ExampleData$s0, t
 landmark=2, std=TRUE, conf.int = TRUE)
 ```
 
-Lastly, one can request that the function returns the optimal transformation estimates using the argument **gopt** as well the PTE of the primary outcome information only, denoted as **R.opt.ind**, (similar to **R.t.estimate** above) using the arugment **ind**, as shown below. 
+Lastly, one can request that the function returns the optimal transformation estimates using the argument **gopt** as well as the PTE of the primary outcome information only, denoted as **R.opt.ind**, (similar to **R.t.estimate** above) using the argument **ind**, as shown below. 
 
 ```{r}
 R.opt.event(xone = ExampleData$x1, xzero = ExampleData$x0, deltaone = ExampleData$delta1, 
