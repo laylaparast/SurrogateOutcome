@@ -10,4 +10,4 @@ More details on the method are available in Parast, Tian, Cai (2020). Assessing 
 
 The package also implements the optimal transformation approach described in Wang X, Cai T, Tian L, Parast L (2025). Model-free Approach to Evaluate a Censored Intermediate Outcome as a Surrogate for Overall Survival. Statistics in Medicine, 44(20-22): e70268.  [doi:10.1002/sim.70268](https://doi.org/10.1002/sim.70268).
 
-Go here to view a tutorial for this package: [SurrogateOutcome Tutorial](https://htmlpreview.github.io/?https://github.com/laylaparast/SurrogateOutcome/blob/main/SurrogateOutcome_tutorial.html). 
+Go here to view a tutorial for this package: [SurrogateOutcome Tutorial](https://htmlpreview.github.io/?https://github.com/laylaparast/SurrogateOutcome/blob/main/SurrogateOutcome_tutorial.html). We also have a Shiny App here: [SurrogateOutcome Shiny App](https://parastlab.shinyapps.io/SurrogateOutcomeApp/).
